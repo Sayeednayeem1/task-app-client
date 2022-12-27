@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'animate.css';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
 
+    const { signIn } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [loginError, setLoginError] = useState('');
 
     const handleLogin = (data) => {
-        console.log(data);
-    }
+        setLoginError('');
+        signIn(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(err => {
+                console.log(err.message);
+                setLoginError(err.message);
+            });
+    };
 
     return (
         <div className='bg-white dark:bg-gray-900 animate__animated animate__pulse flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
@@ -36,12 +48,15 @@ const Login = () => {
                         {errors.password && <p role="alert" className='text-orange-600'>{errors.password?.message}</p>}
                     </div>
                     <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
+                    <div>
+                    {loginError && <p className='text-orange-700'>{loginError}</p>}
+                    </div>
                     <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                         Don’t have an account yet? <Link to='/signup' className="font-medium text-orange-600 hover:underline dark:text-orange-500">SignUp</Link>
                     </p>
-                    <div className="divider text-center">OR</div>
-                    <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp with Google</button>
                 </form>
+                <div className="divider text-center">OR</div>
+                <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp with Google</button>
             </div>
         </div>
     );
