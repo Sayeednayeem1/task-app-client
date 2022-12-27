@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
+
+    const { user } = useContext(AuthContext);
 
     const headerItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/myTasks'>MyTasks</Link></li>
         <li><Link to='/addTasks'>AddTasks</Link></li>
         <li><Link to='/completedTasks'>Completed Tasks</Link></li>
-        <li><Link to='/login'>Login</Link></li>
         <li><Link to='/signup'>SignUp</Link></li>
+        {user?.uid ?
+            <li><Link to='/signup'>Logout</Link></li>
+            :
+            <li><Link to='/login'>Login</Link></li>
+        }
     </>
 
     return (
