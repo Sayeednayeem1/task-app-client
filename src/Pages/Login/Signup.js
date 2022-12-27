@@ -1,25 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'animate.css';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../contexts/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Signup = () => {
 
-    const {createUser} = useContext(AuthContext);
+    const { createUser, updateUser } = useContext(AuthContext);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [signupError, setSignupError] = useState('');
 
     const handleSignUp = (data) => {
         console.log(data);
-        createUser( data.email, data.password)
-        .then(result =>{
-            const user = result.user;
-            console.log(user);
-        })
-        .catch(error =>{
-            console.log(error);
-        })
+        setSignupError('');
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast("User created successfully");
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => { })
+                    .catch(err => console.log(err));
+            })
+            .catch(error => {
+                console.log(error.message);
+                setSignupError(error.message);
+            });
     };
 
 
@@ -57,11 +68,12 @@ const Signup = () => {
                     </div>
                     <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp</button>
                     <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
-                       Already have an account? <Link to='/login' className="font-medium text-orange-600 hover:underline dark:text-orange-500">Login</Link>
+                        Already have an account? <Link to='/login' className="font-medium text-orange-600 hover:underline dark:text-orange-500">Login</Link>
                     </p>
                     <div className="divider text-center">OR</div>
-                    <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp with Google</button>
+                    { signupError && <p className='text-orange-700'>{signupError}</p>}
                 </form>
+                <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp with Google</button>
             </div>
         </div>
     );
