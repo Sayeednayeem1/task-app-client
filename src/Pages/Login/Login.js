@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import 'animate.css';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../contexts/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
 
-    const { signIn } = useContext(AuthContext);
+    const { signIn, googleLogin } = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [loginError, setLoginError] = useState('');
+
+    const googleProvider = new GoogleAuthProvider();
 
     const handleLogin = (data) => {
         setLoginError('');
@@ -21,6 +24,15 @@ const Login = () => {
                 console.log(err.message);
                 setLoginError(err.message);
             });
+    };
+
+    const handleGoogleSignUp = () => {
+        googleLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.error(error));
     };
 
     return (
@@ -49,14 +61,14 @@ const Login = () => {
                     </div>
                     <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
                     <div>
-                    {loginError && <p className='text-orange-700'>{loginError}</p>}
+                        {loginError && <p className='text-orange-700'>{loginError}</p>}
                     </div>
                     <p className="text-sm text-center font-light text-gray-500 dark:text-gray-400">
                         Don’t have an account yet? <Link to='/signup' className="font-medium text-orange-600 hover:underline dark:text-orange-500">SignUp</Link>
                     </p>
                 </form>
                 <div className="divider text-center">OR</div>
-                <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp with Google</button>
+                <button onClick={handleGoogleSignUp} type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login With Google </button>
             </div>
         </div>
     );

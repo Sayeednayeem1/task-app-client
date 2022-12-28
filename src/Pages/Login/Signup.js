@@ -4,13 +4,16 @@ import 'animate.css';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Signup = () => {
 
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser, googleLogin } = useContext(AuthContext);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [signupError, setSignupError] = useState('');
+
+    const googleProvider = new GoogleAuthProvider();
 
     const handleSignUp = (data) => {
         console.log(data);
@@ -31,6 +34,15 @@ const Signup = () => {
                 console.log(error.message);
                 setSignupError(error.message);
             });
+    };
+
+    const handleGoogleSignUp = () => {
+        googleLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => console.error(error));
     };
 
 
@@ -71,9 +83,9 @@ const Signup = () => {
                         Already have an account? <Link to='/login' className="font-medium text-orange-600 hover:underline dark:text-orange-500">Login</Link>
                     </p>
                     <div className="divider text-center">OR</div>
-                    { signupError && <p className='text-orange-700'>{signupError}</p>}
+                    {signupError && <p className='text-orange-700'>{signupError}</p>}
                 </form>
-                <button type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp with Google</button>
+                <button onClick={handleGoogleSignUp} type="submit" className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">SignUp with Google</button>
             </div>
         </div>
     );
