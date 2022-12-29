@@ -4,7 +4,6 @@ import 'animate.css';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { toast } from 'react-hot-toast';
 
 const Login = () => {
 
