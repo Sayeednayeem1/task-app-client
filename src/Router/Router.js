@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/addTasks",
-                element: <AddTasks></AddTasks>
+                element: <PrivateRoute><AddTasks></AddTasks></PrivateRoute>
             },
             {
                 path: '/completedTasks/:id',

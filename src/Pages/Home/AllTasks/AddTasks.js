@@ -2,10 +2,16 @@ import React, { useContext } from 'react';
 import 'animate.css';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AddTasks = () => {
 
     const { user, loading } = useContext(AuthContext);
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/myTasks'
 
     const handleAddTask = (event) => {
         event.preventDefault();
@@ -38,6 +44,7 @@ const AddTasks = () => {
                 console.log(data)
                 if (data.acknowledged) {
                     toast('task created successfully');
+                    navigate(from, { replace: true });
                     form.reset();
                 }
             })

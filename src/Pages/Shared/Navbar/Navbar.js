@@ -6,16 +6,16 @@ const Navbar = () => {
 
     const [theme, setTheme] = useState('light');
 
-    useEffect(() =>{
+    useEffect(() => {
         if (theme === 'dark') {
             document.documentElement.classList.add('dark');
         }
-        else{
+        else {
             document.documentElement.classList.remove('dark');
         }
-    },[theme]);
+    }, [theme]);
 
-    const handleThemeChange = () =>{
+    const handleThemeChange = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
     };
 
@@ -34,11 +34,13 @@ const Navbar = () => {
         <li><Link to='/myTasks'>MyTasks</Link></li>
         <li><Link to='/addTasks'>AddTasks</Link></li>
         {/* <li><Link to='/completedTasks'>CompletedTasks</Link></li> */}
-        <li><Link to='/signup'>SignUp</Link></li>
         {user?.uid ?
             <li><button onClick={handleLogout} type="button" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">LogOut</button></li>
             :
-            <li><Link to='/login'>Login</Link></li>
+            <>
+                <li><Link to='/signup'>SignUp</Link></li>
+                <li><Link to='/login'>Login</Link></li>
+            </>
         }
     </>
 
