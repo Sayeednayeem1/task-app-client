@@ -39,7 +39,7 @@ const MyTasks = () => {
                 <span className="sr-only">Loading...</span>
             </div>
         </div>
-    }
+    };
 
     return (
         <div className='container mx-auto mt-10'>
