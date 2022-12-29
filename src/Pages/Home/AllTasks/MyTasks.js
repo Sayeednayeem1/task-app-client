@@ -9,14 +9,14 @@ const MyTasks = () => {
     const { user, loading } = useContext(AuthContext);
     const [tasks, setTasks] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:5000/myTasks?email=${user?.email}`)
+        fetch(`https://task-server-mu.vercel.app/myTasks?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setTasks(data));
     }, [user?.email]);
     const handleDelete = _id => {
         const proceed = window.confirm('Are you sure you want to delete');
         if (proceed) {
-            fetch(`http://localhost:5000/myTasks/${_id}`, {
+            fetch(`https://task-server-mu.vercel.app/myTasks/${_id}`, {
                 method: 'DELETE',
             })
                 .then(res => res.json())

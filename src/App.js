@@ -6,10 +6,10 @@ import { router } from './Router/Router';
 
 function App() {
   return (
-    <div className="">
+    <div className="w-full bg-white dark:bg-black">
       <div>
         <RouterProvider router={router}></RouterProvider>
-      <Toaster></Toaster>
+        <Toaster></Toaster>
       </div>
     </div>
   );

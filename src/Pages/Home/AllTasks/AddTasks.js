@@ -26,7 +26,7 @@ const AddTasks = () => {
             taskDescription,
         };
 
-        fetch('http://localhost:5000/myTasks', {
+        fetch('https://task-server-mu.vercel.app/myTasks', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

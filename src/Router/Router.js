@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
             {
                 path: '/completedTasks/:id',
                 element: <CompletedTasks></CompletedTasks>,
-                loader: ({params}) => fetch(`http://localhost:5000/myTasks/${params.id}`)
+                loader: ({params}) => fetch(`https://task-server-mu.vercel.app/myTasks/${params.id}`)
             },
             {
                 path: '/login',
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
             {
                 path: '/myTaskDetails/:id',
                 element: <PrivateRoute><MyTaskDetails></MyTaskDetails></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/myTasks/${params.id}`)
+                loader: ({params}) => fetch(`https://task-server-mu.vercel.app/myTasks/${params.id}`)
             }
         ]
     }
