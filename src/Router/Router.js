@@ -4,7 +4,6 @@ import AddTasks from "../Pages/Home/AllTasks/AddTasks";
 import CompletedTasks from "../Pages/Home/AllTasks/CompletedTasks";
 import MyTaskDetails from "../Pages/Home/AllTasks/MyTaskDetails";
 import MyTasks from "../Pages/Home/AllTasks/MyTasks";
-import TestTask from "../Pages/Home/AllTasks/TestTask";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Login/Signup";
@@ -36,10 +35,6 @@ export const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
-            },
-            {
-                path: '/testTask',
-                element: <TestTask></TestTask>
             },
             {
                 path: '/signup',

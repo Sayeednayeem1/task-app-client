@@ -3,8 +3,6 @@ import { toast, ToastBar } from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import CompletedTasks from './CompletedTasks';
 import MyTaskDetail from './MyTaskDetail';
-import TestTask from './TestTask';
-
 const MyTasks = () => {
     const { user, loading } = useContext(AuthContext);
     const [tasks, setTasks] = useState([]);
@@ -55,15 +53,6 @@ const MyTasks = () => {
                     ></MyTaskDetail>)
                 }
             </div>
-            <article>
-                {
-                    tasks.map(x => <TestTask
-
-                        key={x._id}
-                        x={x}
-                    ></TestTask>)
-                }
-            </article>
         </div>
     );
 };
