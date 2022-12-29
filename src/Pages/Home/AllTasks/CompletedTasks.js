@@ -1,9 +1,10 @@
 import React from 'react';
+import CompletedTasksDetails from './CompletedTasksDetails';
 
 const CompletedTasks = () => {
     return (
         <div>
-            <h5>this are my completed tasks: </h5>
+            <CompletedTasksDetails></CompletedTasksDetails>
         </div>
     );
 };
