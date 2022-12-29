@@ -1,10 +1,13 @@
 import React from 'react';
-import CompletedTasksDetails from './CompletedTasksDetails';
+import { useLoaderData } from 'react-router-dom';
 
 const CompletedTasks = () => {
+
+    const { taskName, aboutTask, _id, taskDate, taskEmail, userName, taskDescription } = useLoaderData()
+
     return (
         <div>
-            <CompletedTasksDetails></CompletedTasksDetails>
+            <h5>this is a test: {aboutTask}</h5>
         </div>
     );
 };
