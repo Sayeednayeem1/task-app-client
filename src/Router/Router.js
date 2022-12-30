@@ -7,6 +7,7 @@ import MyTasks from "../Pages/Home/AllTasks/MyTasks";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Login/Signup";
+import PageNotFound from "../Pages/PageNotFound/PageNotFound";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -46,5 +47,9 @@ export const router = createBrowserRouter([
                 loader: ({params}) => fetch(`https://task-server-mu.vercel.app/myTasks/${params.id}`)
             }
         ]
+    },
+    {
+        path: '*',
+        element: <PageNotFound></PageNotFound>
     }
 ]);
